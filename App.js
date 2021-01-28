@@ -41,7 +41,7 @@ const MainNavigation = () => {
             if (route.name === 'Home') {
               iconName = 'home'
             } else if (route.name === 'Favorites') {
-              iconName = 'star';
+              iconName = 'heart';
             }
             else if (route.name === 'Search') {
               iconName = 'search-web';

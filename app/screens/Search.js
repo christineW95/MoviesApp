@@ -4,6 +4,7 @@ import Card from '../controls/card';
 import FavoritesContext from '../context/FavoritesContext';
 import MoviesContext from '../context/MoviesContext';
 import { Searchbar } from 'react-native-paper';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 const Search = (props) => {
     const { addProductToFavorites } = useContext(FavoritesContext);
     const [query, setQuery] = useState("");
@@ -15,32 +16,36 @@ const Search = (props) => {
     }
     const Item = ({ item }) => {
         return (
-            <Card item={item}
-                onAddToFavorite={() => {
-                    addProductToFavorites(item)
-                }}
-            />
+            <TouchableOpacity onPress={() => {
+                props.navigation.navigate('MovieDetails', { item: item })
+            }}>
+
+                <Card item={item}
+                    onAddToFavorite={() => {
+                        addProductToFavorites(item)
+                    }}
+                />
+            </TouchableOpacity>
+
         )
     };
     const onSearch = (queryText) => {
         if (queryText !== "") {
             let newData;
-            newData = movies.filter(movie => {
-                let movieObj = `${movie.title.toUpperCase()}`;
-                let Query = queryText.toUpperCase();
-                return movieObj.includes(Query);
-            });
-            setSearchResults(newData);
+            if (Array.isArray(movies.movies.results) && movies.movies.results.length > 0) {
+                newData = movies.movies.results.filter(movie => {
+                    let movieObj = `${movie.title.toUpperCase()}`;
+                    let Query = queryText.toUpperCase();
+                    return movieObj.includes(Query);
+                });
+                setSearchResults(newData);
+            }
         }
     }
 
     return (
         <SafeAreaView>
             <View>
-                {/* <TextInput onChangeText={(text) => {
-                    setQuery(text)
-                    onSearch(query);
-                }}></TextInput> */}
                 <Searchbar
                     placeholder="Search"
                     onChangeText={(text) => {

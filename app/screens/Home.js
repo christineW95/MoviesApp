@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 
 import {
-    View, SafeAreaView, FlatList
+    View, SafeAreaView, FlatList, TouchableOpacity
 } from 'react-native';
 import Colors from '../theme/Colors';
 import Card from '../controls/card';
@@ -11,10 +11,8 @@ import useFetch from "../services/services";
 
 
 const Home = (props) => {
-
-    console.warn('navigation', useFetch("https://api.themoviedb.org/3/movie/"))
     const { addProductToFavorites } = useContext(FavoritesContext);
-    const { movies } = useContext(MoviesContext)
+    const { movies } = useContext(MoviesContext);
     const renderItem = ({ item }) => {
         return (
             <Item item={item} />);
@@ -22,7 +20,7 @@ const Home = (props) => {
     const Item = ({ item }) => {
         return (
             <TouchableOpacity onPress={() => {
-                navigation.navigate('MovieDetails')
+                props.navigation.navigate('MovieDetails', { item: item })
             }}>
                 <Card item={item}
                     onAddToFavorite={() => {
@@ -39,7 +37,7 @@ const Home = (props) => {
                     <FlatList
                         numColumns={1}
                         initialNumToRender={4}
-                        data={movies}
+                        data={movies.movies.results}
                         renderItem={renderItem}
                         keyExtractor={item => item.id}
                     />
