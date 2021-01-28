@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Alert, ToastAndroid } from "react-native";
 
 export default function useFetch(url) {
     const [movies, setmovies] = useState([]);

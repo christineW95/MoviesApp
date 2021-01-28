@@ -4,7 +4,6 @@ import {
     View, SafeAreaView, Dimensions, ScrollView, ImageBackground, TouchableOpacity, Text, ImagePropTypes
 
 } from 'react-native';
-import Colors from '../theme/Colors';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import StarRating from 'react-native-star-rating';
 import FavoritesContext from '../context/FavoritesContext';

@@ -1,8 +1,5 @@
 import React from 'react';
-import { View, Text, Image, ImageBackground, TouchableHighlight, TouchableOpacity, Dimensions, TextInput } from 'react-native';
-import CustomButton from './button';
-import Colors from '../theme/Colors';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import { View, Text, TextInput } from 'react-native';
 const SearchBar = (props) => {
 
     return (

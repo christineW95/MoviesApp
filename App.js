@@ -1,5 +1,5 @@
 
-import React, { useContext } from 'react';
+import React from 'react';
 import 'react-native-gesture-handler';
 import Home from './app/screens/Home';
 import { NavigationContainer } from '@react-navigation/native';

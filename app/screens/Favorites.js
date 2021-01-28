@@ -1,12 +1,11 @@
 import React, { useContext } from 'react';
 import {
     Image,
-    View, Text, FlatList, SafeAreaView, Button, TouchableOpacity
+    View, Text, FlatList, SafeAreaView, TouchableOpacity
 
 } from 'react-native';
 import FavoritesContext from '../context/FavoritesContext';
 import Colors from '../theme/Colors'
-import MoviesDetails from './MoviesDetails';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 const Favorites = (props) => {
     const { favorites, removeProductFromFavorites } = useContext(FavoritesContext);

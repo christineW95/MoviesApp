@@ -7,7 +7,6 @@ import Colors from '../theme/Colors';
 import Card from '../controls/card';
 import FavoritesContext from '../context/FavoritesContext';
 import MoviesContext from '../context/MoviesContext';
-import useFetch from "../services/services";
 
 
 const Home = (props) => {

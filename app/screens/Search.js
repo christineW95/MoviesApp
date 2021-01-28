@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { FlatList, SafeAreaView, TextInput, View, Text } from "react-native";
+import { FlatList, SafeAreaView, View } from "react-native";
 import Card from '../controls/card';
 import FavoritesContext from '../context/FavoritesContext';
 import MoviesContext from '../context/MoviesContext';

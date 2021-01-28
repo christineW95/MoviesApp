@@ -1,7 +1,5 @@
 import React from 'react';
-import { View, Text, Image, ImageBackground, TouchableHighlight, TouchableOpacity, Dimensions } from 'react-native';
-import CustomButton from './button';
-import Colors from '../theme/Colors';
+import { View, Text, ImageBackground, TouchableOpacity, Dimensions } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import StarRating from 'react-native-star-rating';
 const Card = (props) => {

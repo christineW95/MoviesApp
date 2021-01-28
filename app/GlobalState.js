@@ -15,7 +15,6 @@ const GlobalState = (props) => {
             setFavorite([...favorite, product])
     };
     const removeProductFromFavorite = productId => {
-        console.warn(productId.id)
         let productIndex = favorite.findIndex(item => {
             return item.id == productId;
         })
