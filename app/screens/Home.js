@@ -4,7 +4,7 @@ import {
     View, SafeAreaView, FlatList, TouchableOpacity
 } from 'react-native';
 import Colors from '../theme/Colors';
-import Card from '../controls/card';
+import Card from '../controls/Card';
 import FavoritesContext from '../context/FavoritesContext';
 import MoviesContext from '../context/MoviesContext';
 
@@ -12,11 +12,8 @@ import MoviesContext from '../context/MoviesContext';
 const Home = (props) => {
     const { addProductToFavorites } = useContext(FavoritesContext);
     const { movies } = useContext(MoviesContext);
+
     const renderItem = ({ item }) => {
-        return (
-            <Item item={item} />);
-    }
-    const Item = ({ item }) => {
         return (
             <TouchableOpacity onPress={() => {
                 props.navigation.navigate('MovieDetails', { item: item })
@@ -27,8 +24,9 @@ const Home = (props) => {
                     }}
                 />
             </TouchableOpacity>
-        )
-    };
+        );
+    }
+
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <View style={{ backgroundColor: Colors.backgroundColor }}>

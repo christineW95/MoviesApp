@@ -1,38 +1,48 @@
-import React, { useContext } from 'react';
 import {
+    FlatList,
     Image,
-    View, Text, FlatList, SafeAreaView, TouchableOpacity
-
+    SafeAreaView,
+    Text,
+    TouchableOpacity,
+    View,
+    StyleSheet
 } from 'react-native';
-import FavoritesContext from '../context/FavoritesContext';
+import React, { useContext } from 'react';
+
+import { APIURLs } from '../config/APConfig';
 import Colors from '../theme/Colors'
+import FavoritesContext from '../context/FavoritesContext';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 const Favorites = (props) => {
     const { favorites, removeProductFromFavorites } = useContext(FavoritesContext);
 
     renderItem = ({ item }) => {
         return (
-            <View style={{ flex: 1, flexDirection: 'row', backgroundColor: Colors.white, borderRadius: 5, borderColor: 'lightgrey', borderWidth: 1, margin: 10 }}>
+            <View style={styles.itemContainer}>
 
-                <View style={{ flex: 3, alignItems: 'center', justifyContent: 'center', alignContent: 'center' }}>
+                <View style={styles.imageContainer}>
                     <Image
-                        style={{ resizeMode: 'cover', flex: 1, width: 100, height: 100, margin: 10, borderRadius: 10 }}
-                        source={{ uri: "https://image.tmdb.org/t/p/w500" + item.backdrop_path }} />
+                        style={styles.image}
+                        source={{ uri: APIURLs.imagesBaseURL + item.backdrop_path }} />
                 </View>
 
-                <View style={{ flex: 7, backgroundColor: 'white', padding: 10 }}>
+                <View style={styles.details}>
                     <View>
-                        <Text style={{ fontSize: 15, fontWeight: 'bold', }}>{item.title}</Text>
-                        <Text style={{ fontSize: 12, }}>Release Date : {item.release_date}</Text>
-                        <Text style={{ fontSize: 12, }}>Vote Average : {item.vote_average}
-                            <Icon name={"star"} color={Colors.yellow} size={20} />
-                        </Text>
+                        {/**do not use inline styles */}
+                        <Text style={styles.title}>{item.title}</Text>
+                        <Text style={styles.label}>Release Date : {item.release_date}</Text>
+                        <View style={{ flexDirection: "row", marginTop: 4 }}>
+                            <Text style={[styles.label, { alignItems: "center", justifyContent: "center" }]}>
+                                Vote Average : {item.vote_average / 2}
+                            </Text>
+                            <Icon name={"star"} color={Colors.starColor} size={20} />
+                        </View>
                     </View>
-                    <View style={{ flex: 2, alignItems: 'flex-end', justifyContent: 'flex-end' }}>
+                    <View style={styles.removeButton}>
                         <TouchableOpacity onPress={() =>
                             removeProductFromFavorites(item.id)
                         } >
-                            <Text style={{ color: Colors.lightblue, fontSize: 15 }}>
+                            <Text style={styles.removeButtonText}>
                                 Remove from Favorites
                             </Text>
                         </TouchableOpacity>
@@ -45,7 +55,6 @@ const Favorites = (props) => {
 
 
     return (
-        // <MoviesDetails />
         <SafeAreaView style={{ flex: 1 }}>
 
             <View style={{ flex: 1 }}>
@@ -59,6 +68,52 @@ const Favorites = (props) => {
         </SafeAreaView>
     );
 };
+const styles = StyleSheet.create({
+    itemContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        backgroundColor: 'white',
+        borderRadius: 5,
+        borderColor: 'lightgrey',
+        borderWidth: 1,
+        margin: 10
+    },
+    imageContainer: {
+        flex: 3,
+        alignItems: 'center',
+        justifyContent: 'center',
+        alignContent: 'center'
+    },
+    image: {
+        resizeMode: 'cover',
+        flex: 1,
+        width: 100,
+        height: 100,
+        margin: 10,
+        borderRadius: 10
+    },
+    details: {
+        flex: 7,
+        backgroundColor: 'white',
+        padding: 10
+    },
+    title: {
+        fontSize: 15,
+        fontWeight: 'bold',
+    },
+    label: {
+        fontSize: 12,
+    },
+    removeButton: {
+        flex: 2,
+        alignItems: 'flex-end',
+        justifyContent: 'flex-end'
+    },
+    removeButtonText: {
+        color: Colors.primaryColor,
+        fontSize: 15
+    }
+})
 
 
 export default Favorites;

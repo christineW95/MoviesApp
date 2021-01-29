@@ -1,7 +1,6 @@
 const Colors = {
-    yellow: '#FED042',
-    white: 'white',
-    lightblue: 'lightblue',
+    primaryColor: 'lightblue',
+    starColor: '#FED042',
     backgroundColor: '#F2F0E5'
 
 }

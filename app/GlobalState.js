@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import FavoritesContext from "./context/FavoritesContext";
 import MoviesContext from "./context/MoviesContext";
-import useFetch from "./services/services";
+import useFetch from "./services/Services";
+import { APIURLs } from "./config/APConfig"
 const GlobalState = (props) => {
     const [favorite, setFavorite] = useState([]);
     const addProductToFavorite = (product) => {
@@ -28,7 +29,7 @@ const GlobalState = (props) => {
     return (
         <MoviesContext.Provider
             value={{
-                movies: useFetch("https://api.themoviedb.org/3/discover/movie?api_key=88591e1e43826c186c436a5d4f0cfda9")
+                movies: useFetch(APIURLs.getMovies + "?api_key=" + APIURLs.moviesKey)
             }}>
             <FavoritesContext.Provider
                 value={{

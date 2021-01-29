@@ -1,76 +1,60 @@
+import { Dimensions, ImageBackground, SafeAreaView, ScrollView, Text, TouchableOpacity, View, StyleSheet } from 'react-native';
 import React, { useContext } from 'react';
-import {
 
-    View, SafeAreaView, Dimensions, ScrollView, ImageBackground, TouchableOpacity, Text, ImagePropTypes
-
-} from 'react-native';
+import { APIURLs } from '../config/APConfig';
+import FavoritesContext from '../context/FavoritesContext';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import StarRating from 'react-native-star-rating';
-import FavoritesContext from '../context/FavoritesContext';
 
 const MovieDetails = (props) => {
+
     let item = props.route.params?.item ?? 'defaultValue';
-    let { screenWidth } = Dimensions.get('screen');
     const { addProductToFavorites } = useContext(FavoritesContext);
 
+    //TODO: check out this at the end
     let dynamicProperties = [];
     for (let property in item) {
         if (property != "id")
             dynamicProperties.push({ key: property, value: item[property] })
     }
-    // dynamicProperties = dynamicProperties.map(property => {
-    //     return (
-    //         property.key != "image" ?
-    //             (
-    //                 property.key == "title" ?
-    //                     <View style={{ padding: 10 }}>
-    //                         <Text style={{ fontSize: 35, fontWeight: 'bold', }}>{item.title} </Text>
-    //                     </View> :
-    //                     < View style={{ padding: 10 }}>
-    //                         <Text style={{ fontSize: 18, fontWeight: 'bold', }}>{property.key} </Text>
-    //                         <Text>{property.value}</Text>
-    //                     </View >) :
-    //             (<ImageBackground source={{ uri: "https://image.tmdb.org/t/p/w500" + item.backdrop_path }} style={{ width: screenWidth, height: 300, }} imageStyle={{ borderTopLeftRadius: 10, borderTopRightRadius: 10, borderWidth: 1, borderColor: 'lightgrey', resizeMode: 'stretch' }} >
-    //                 <TouchableOpacity style={{ alignSelf: 'flex-end', padding: 10 }}
-    //                     onPress={
-    //                         props.onAddToFavorite
-    //                     }
-    //                 >
-    //                     <Icon name="star" size={30} color={Colors.yellow} />
-    //                 </TouchableOpacity>
-    //             </ImageBackground>)
-    //     )
-    // });
+
     return (
-        <SafeAreaView style={{ flex: 1, }}>
+        <SafeAreaView style={{ flex: 1 }}>
             <ScrollView >
-                <View style={{ paddingVertical: 10 }}>
-                    <ImageBackground source={{ uri: "https://image.tmdb.org/t/p/w500" + item.backdrop_path }} style={{ width: screenWidth, height: 300, }} imageStyle={{ borderTopLeftRadius: 10, borderTopRightRadius: 10, borderWidth: 1, borderColor: 'lightgrey', resizeMode: 'stretch' }} >
-                        <TouchableOpacity style={{ alignSelf: 'flex-end', padding: 10 }} onPress={() => addProductToFavorites(item)} >
+                <View style={styles.scrollView}>
+                    <ImageBackground
+                        source={{ uri: APIURLs.imagesBaseURL + item.backdrop_path }}
+                        style={styles.imageContainer}
+                        imageStyle={styles.imageContainer} >
+
+                        <TouchableOpacity
+                            style={styles.iconContainer}
+                            onPress={() => addProductToFavorites(item)}
+                        >
                             <Icon name="heart" size={25} color={"red"} />
                         </TouchableOpacity>
                     </ImageBackground>
+
+                    <Text style={styles.title}>{item.title} </Text>
+
                     <View style={{ padding: 10 }}>
-                        <Text style={{ fontSize: 35, fontWeight: 'bold', }}>{item.title} </Text>
-                    </View>
-                    <View style={{ padding: 10 }}>
-                        <Text style={{}}>{item.overview} </Text>
-                        < View style={{ padding: 10 }}>
+                        <Text style={styles.section}>{item.overview} </Text>
+                        < View style={styles.section}>
                             <Text style={{ fontSize: 18, fontWeight: 'bold', }}>Release Date</Text>
                             <Text>{item.release_date}</Text>
                         </View >
-                        < View style={{ padding: 10 }}>
+                        < View style={styles.section}>
                             <Text style={{ fontSize: 18, fontWeight: 'bold', }}>Language</Text>
                             <Text>{item.original_language.toUpperCase()}</Text>
                         </View >
-                        < View style={{ padding: 10 }}>
+                        < View style={styles.section}>
                             <Text style={{ fontSize: 18, fontWeight: 'bold', }}>Vote Count</Text>
                             <Text>{item.vote_count}</Text>
                         </View >
-                        < View style={{ padding: 10 }}>
+                        < View style={styles.section}>
                             <Text style={{ fontSize: 18, fontWeight: 'bold', }}>Vote Average</Text>
                             <StarRating
-                                containerStyle={{ flex: 2, width: '30%', justifyContent: 'space-evenly', paddingTop: 5 }}
+                                containerStyle={styles.stars}
                                 disabled={true}
                                 emptyStar="star"
                                 emptyStarColor="lightgrey"
@@ -89,6 +73,34 @@ const MovieDetails = (props) => {
 
     );
 };
+const styles = StyleSheet.create({
+    scrollView: { paddingVertical: 10 },
+    imageContainer: {
+        width: "100%",
+        height: 300,
+    },
+    image: {
+        borderTopLeftRadius: 10,
+        borderTopRightRadius: 10,
+        borderWidth: 1,
+        borderColor: 'lightgrey',
+        resizeMode: 'stretch'
+    },
+    iconContainer: {
+        alignSelf: 'flex-end',
+        padding: 10
+    },
+    title: {
+        padding: 10,
+        fontSize: 35,
+        fontWeight: 'bold',
+        marginBottom: 10
+    },
+    section: {
+        marginBottom: 10,
+    },
+    stars: { flex: 2, width: '30%', justifyContent: 'space-evenly', paddingTop: 5 }
+})
 
 
 export default MovieDetails;
